@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+    <h2>SIGN UP FORM</h2>
+    <div id="SignUpDiv">
+        <form method="POST" action="/index.php?action=register">
+            <?php
+                if (!empty($_SESSION['errorMessage'])) {
+                    echo '<div style="color:#F00; font-weight:bold; font-size:20px;">' . $_SESSION['errorMessage'] .'</div>';
+                    unset($_SESSION['errorMessage']);
+                }
+            ?>
+            <table>
+                <tr>
+                    <td>Your username</td>
+                    <td><input type="text" name="username"/></td>
+                </tr>
+                <tr>
+                    <td>Password :</td>
+                    <td><input type="password" name="password"/></td>
+                </tr>
+                <tr>
+                    <td>Repepat Password :</td>
+                    <td><input type="password" name="password-repeat"/></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="email" name="email"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Sign Up"/></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    </body>
+</html>
