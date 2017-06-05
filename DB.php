@@ -43,6 +43,14 @@ class DB
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function fetchAll($query, $parameters = [])
+    {
+        $statement = $this->pdo->prepare($query);
+        $statement->execute($parameters);
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getLastInsertId()
     {
         return $this->pdo->lastInsertId();

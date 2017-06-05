@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Chat</title>
+        <link rel="stylesheet" href="/css/chat.css">
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="/js/chat.js"></script>
+    </head>
+    <body>
+        <div id="top-container">
+            <div id="message-window">
+                <?php foreach ($messages as $m): ?>
+                    <div data-id="<?= $m['id'] ?>">[<?= date('Y-m-d H:i:s', $m['created']); ?>] <?= $m['username'] ?>: <?= htmlentities($m['message']); ?></div>
+                <?php endforeach; ?>
+            </div>
+
+            <div id="users-list">
+                <?php foreach ($onlineUsers as $user): ?>
+                    <div><?= $user['username']; ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div id="bottom-container">
+            <textarea id="message"></textarea>
+            <button id="send-message">Send</button>
+        </div>
+    </body>
+</html>

@@ -57,4 +57,41 @@ class UserModel
 
         return true;
     }
+
+    public function login($data)
+    {
+        if (
+            empty($data['username'])
+            || empty($data['password'])
+        ) {
+            throw new Exception('All fields are required');
+        }
+
+        $db = DB::getInstance();
+
+        $user = $db->fetchOne("SELECT * FROM `users` WHERE `username` = ?", [$data['username']]);
+
+        if (!$user) {
+            throw new Exception('User not found');
+        }
+
+        if (!password_verify($data['password'], $user['password'])) {
+            throw new Exception('Password is incorrect');
+        }
+
+        $_SESSION['authenticated'] = true;
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['userId'] = $user['id'];
+
+        return true;
+    }
+
+    public function getOnline()
+    {
+        $db = DB::getInstance();
+
+        $users = $db->fetchAll("SELECT * FROM `users` WHERE `is_online` = 1");
+
+        return $users;
+    }
 }

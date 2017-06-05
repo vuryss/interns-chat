@@ -22,9 +22,34 @@ class Router
         ],
         [
             'method'           => 'GET',
+            'action'           => 'login',
+            'controller'       => 'Login',
+            'controllerAction' => 'form',
+        ],
+        [
+
+            'method'           => 'POST',
+            'action'           => 'login',
+            'controller'       => 'Login',
+            'controllerAction' => 'login',
+        ],
+        [
+            'method'           => 'GET',
             'action'           => 'chat',
             'controller'       => 'Chat',
             'controllerAction' => 'view',
+        ],
+        [
+            'method'           => 'POST',
+            'action'           => 'message',
+            'controller'       => 'Chat',
+            'controllerAction' => 'message',
+        ],
+        [
+            'method'           => 'POST',
+            'action'           => 'update',
+            'controller'       => 'Chat',
+            'controllerAction' => 'update',
         ]
     ];
 

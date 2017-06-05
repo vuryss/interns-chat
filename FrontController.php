@@ -5,6 +5,7 @@ class FrontController
     public function start()
     {
         session_start();
+        date_default_timezone_set('Europe/Sofia');
 
         $router = new Router();
         $route = $router->route();

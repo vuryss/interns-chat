@@ -1,7 +1,7 @@
 <?php
 
 
-class RegisterController
+class LoginController
 {
     public function form()
     {
@@ -11,12 +11,12 @@ class RegisterController
         }
 
         $view = new View();
-        $view->htmlFile('register');
+        $view->htmlFile('login');
 
         return $view;
     }
 
-    public function register()
+    public function login()
     {
         if (!empty($_SESSION['authenticated']) || $_SESSION['authenticated'] === true) {
             header('Location: index.php?action=chat');
@@ -26,13 +26,13 @@ class RegisterController
         $userModel = new UserModel();
 
         try {
-            if ($userModel->register($_POST)) {
+            if ($userModel->login($_POST)) {
                 header('Location: index.php?action=chat');
                 exit;
             }
         } catch (Exception $e) {
             $_SESSION['errorMessage'] = $e->getMessage();
-            header('Location: index.php?action=register');
+            header('Location: index.php?action=login');
             exit;
         }
     }
