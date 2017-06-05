@@ -1,46 +1,61 @@
 @charset "UTF-8";
 
-html, body {
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    margin: 0;
-    border: none;
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+.container-fluid {
+    min-height: calc(100vh - 60px);
+    margin: 30px;
 }
 
 #top-container {
-    width: 100%;
-    height: 80%;
-    background-color: #FAA;
+    height: calc(100vh - 90px);
 }
 
 #bottom-container {
-    width: 100%;
-    height: 20%;
-    background-color: #AFA;
+    height: 30px;
 }
 
 #message-window {
-    float: left;
-    width: 80%;
-    height: 100%;
-    background-color: #AAF;
+    height: calc(100vh - 90px);
+    background-color: #EEE;
+    border-top-left-radius: 10px;
+    padding: 7px 10px;
 }
 
 #users-list {
-    height: 100%;
-    background-color: #FFA;
+    height: calc(100vh - 90px);
+    border-top-right-radius: 10px;
+    background-color: #333;
+    color: #EEE;
+    font-weight: bold;
+}
+
+#users-list > div {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+}
+
+#users-list > div:hover {
+    background-color: #555;
 }
 
 #bottom-container textarea {
-    display: block;
-    float: left;
-    width: 80%;
-    height: 100%;
+    height: 30px;
+    line-height: 27px;
+    padding: 0 10px;
+    margin: 0;
+    border-bottom-left-radius: 10px;
+    resize: none;
 }
 
 #bottom-container button {
-    width: 100px;
-    height: 50px;
-    margin: 20px;
+    height: 30px;
+    border: none;
+    background-color: #BBB;
+    font-weight: bold;
+    border-bottom-right-radius: 10px;
 }
