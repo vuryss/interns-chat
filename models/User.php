@@ -79,6 +79,11 @@ class UserModel
             throw new Exception('Password is incorrect');
         }
 
+        $db->execute(
+            "UPDATE `users` SET `is_online` = 1, `last_activity` = ? WHERE `id` = ?",
+            [time(), $user['id']]
+        );
+
         $_SESSION['authenticated'] = true;
         $_SESSION['username'] = $user['username'];
         $_SESSION['userId'] = $user['id'];
@@ -93,5 +98,12 @@ class UserModel
         $users = $db->fetchAll("SELECT * FROM `users` WHERE `is_online` = 1");
 
         return $users;
+    }
+
+    public function updateLastSeen()
+    {
+        $db = DB::getInstance();
+        $db->execute("UPDATE `users` SET `last_activity` = ? WHERE `id` = ?", [time(), $_SESSION['userId']]);
+        $db->execute("UPDATE `users` SET `is_online` = 0 WHERE `last_activity` < ?", [time() - 10]);
     }
 }

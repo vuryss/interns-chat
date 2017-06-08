@@ -4,12 +4,21 @@ jQuery(window).on(
     {
         window['lastMessageId'] = 0;
 
-        $('#message-window > div').each(
-            function(index, el) {
-                var id = parseInt($(el).data('id'));
+        for (var i in initialMessages) {
+            addMessage(
+                initialMessages[i].id,
+                initialMessages[i].date,
+                initialMessages[i].username,
+                initialMessages[i].message
+            );
+        }
 
-                if (id > window['lastMessageId']) {
-                    window['lastMessageId'] = id;
+        $('#message').on(
+            'keypress',
+            function(e) {
+                if (e.keyCode == 13) {
+                    $('#send-message').trigger('click');
+                    return false;
                 }
             }
         );
@@ -54,15 +63,12 @@ jQuery(window).on(
 
                         // Update messages
                         for (var i in data.messages) {
-                            $('#message-window').append(
-                                '<div>[' + data.messages[i].date + '] ' + data.messages[i].username + ': ' + data.messages[i].message + '</div>'
+                            addMessage(
+                                data.messages[i].id,
+                                data.messages[i].date,
+                                data.messages[i].username,
+                                data.messages[i].message
                             );
-
-                            var id = parseInt(data.messages[i].id);
-
-                            if (id > window['lastMessageId']) {
-                                window['lastMessageId'] = id;
-                            }
                         }
                     },
                     'json'
@@ -72,3 +78,52 @@ jQuery(window).on(
         );
     }
 );
+
+var usernameColor = {};
+
+function addMessage(id, date, user, message)
+{
+    // Generate random color for each user
+    if (!usernameColor[user]) {
+        var colors = [
+            parseInt(Math.random() * 100),
+            parseInt(Math.random() * 100),
+            parseInt(Math.random() * 55) + 200
+        ];
+
+        shuffleArray(colors);
+
+        usernameColor[user] = colors.join(',');
+    }
+
+    user = '<span style="font-weight: bold; color: rgb(' + usernameColor[user] + ')">' + user + '</span>';
+
+    // Add message to message list
+    $('#message-window').append(
+        '<div>[' + date + '] ' + user + ': ' + message + '</div>'
+    );
+
+    // Scroll to bottom
+    $('#message-window').scrollTop($('#message-window')[0].scrollHeight);
+
+    // Save last message ID
+    var id = parseInt(id);
+
+    if (id > window['lastMessageId']) {
+        window['lastMessageId'] = id;
+    }
+}
+
+function shuffleArray(array)
+{
+    var i = 0,
+        j = 0,
+        temp = null;
+
+    for (i = array.length - 1; i > 0; i -= 1) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}

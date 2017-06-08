@@ -16,6 +16,10 @@ class MessagesModel
             [$userId, time(), $data['message']]
         );
 
+        $lastId = $db->getLastInsertId();
+
+        $db->execute("DELETE FROM `messages` WHERE `id` < ?", [$lastId - 10]);
+
         return true;
     }
 
@@ -34,10 +38,11 @@ class MessagesModel
           INNER JOIN
             `users` AS u_ ON u_.`id` = m_.`user_id`
           ORDER BY 
-            `created` ASC
+            `created` DESC
+          LIMIT 5
         ");
 
-        return $messages;
+        return array_reverse($messages);
     }
 
     public function getMessagesSinceId($id)

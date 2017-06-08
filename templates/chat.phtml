@@ -14,10 +14,10 @@
     <body>
         <div class="container-fluid">
             <div id="top-container" class="row">
+                <script>
+                    var initialMessages = <?= json_encode($messages); ?>;
+                </script>
                 <div id="message-window" class="col-xs-9">
-                    <?php foreach ($messages as $m): ?>
-                        <div data-id="<?= $m['id'] ?>">[<?= date('Y-m-d H:i:s', $m['created']); ?>] <?= $m['username'] ?>: <?= htmlentities($m['message']); ?></div>
-                    <?php endforeach; ?>
                 </div>
 
                 <div id="users-list" class="col-xs-3">

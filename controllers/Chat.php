@@ -16,6 +16,10 @@ class ChatController
         $messagesModel = new MessagesModel();
         $allMessages = $messagesModel->getAllMessages();
 
+        foreach ($allMessages as $key => $message) {
+            $allMessages[$key]['date'] = date('Y-m-d H:i:s', $message['created']);
+        }
+
         $view = new View();
         $view->htmlFile('chat', ['onlineUsers' => $onlineUsers, 'messages' => $allMessages]);
 
@@ -61,6 +65,9 @@ class ChatController
 
         $userModel = new UserModel();
         $onlineUsers = $userModel->getOnline();
+
+        // Update last activity time
+        $userModel->updateLastSeen();
 
         $view = new View();
 
